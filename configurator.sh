@@ -16,25 +16,19 @@ if ! command -v python3 &> /dev/null; then
     exit 1
 fi
 
-# Check if required Python packages are installed
+# Check and install required packages
 check_packages() {
     local missing_packages=0
     
-    # Check if pip is available
-    if ! python3 -m pip --version &> /dev/null; then
-        echo "Error: pip is required but not found."
-        echo "Please install pip for Python 3 and try again."
-        exit 1
-    fi
-    
-    # Check for required packages
+    # Check for required packages (non-aggressive check)
     for package in rich pyyaml; do
         if ! python3 -c "import $package" &> /dev/null; then
-            echo "Installing required package: $package"
-            python3 -m pip install "$package" || {
-                echo "Error: Failed to install $package"
-                exit 1
-            }
+            echo "Warning: Required package '$package' not found."
+            echo "For full functionality, please install it with:"
+            echo "  pip install $package"
+            echo "Or use a virtual environment:"
+            echo "  python3 -m venv venv && source venv/bin/activate && pip install -r requirements.txt"
+            echo ""
         fi
     done
 }
@@ -100,7 +94,7 @@ if [[ "$SHOW_HELP" == true ]]; then
     exit 0
 fi
 
-# Check and install required packages
+# Check for required packages
 check_packages
 
 # Build Python arguments
