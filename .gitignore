@@ -1,0 +1,31 @@
+# Node modules
+node_modules/
+
+# Settings files (generated)
+~/.pi/agent/settings.json
+~/.pi/agent/settings.json.backup.*
+.pi/agent/settings.json
+.pi/agent/settings.json.backup.*
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+
+# IDE settings
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Backup files
+backup.json
+settings_backup.json
