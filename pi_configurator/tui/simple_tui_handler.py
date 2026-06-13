@@ -7,6 +7,7 @@ import os
 import sys
 from typing import Dict, Any
 from pi_configurator.core.config_manager import ConfigManager
+from pi_configurator.tui.terminal_utils import get_user_choice
 
 class SimpleTUIHandler:
     """Simple Terminal User Interface Handler."""
@@ -126,57 +127,7 @@ class SimpleTUIHandler:
         print("Navigation: ↑↓ arrows or j/k to move, Enter to select, q to quit, ? for help")
         print("-" * self.width)
     
-    def _handle_input(self):
-        """Handle user input with arrow key support."""
-        menu_items = self.menus[self.current_menu]["items"]
-        
-        # Get user input
-        user_input = input("Select option: ")
-        
-        # Handle escape sequences from arrow keys
-        if user_input.startswith('\x1b['):
-            # Arrow key pressed
-            if user_input == '\x1b[A':  # Up arrow
-                self.current_selection = max(0, self.current_selection - 1)
-                return "navigate"
-            elif user_input == '\x1b[B':  # Down arrow
-                self.current_selection = min(len(menu_items) - 1, self.current_selection + 1)
-                return "navigate"
-        
-        # Strip and process normal input
-        user_input = user_input.strip().lower()
-        
-        # Handle special commands
-        if user_input in ['q', 'quit', 'exit']:
-            if self.current_menu == "main":
-                self.running = False
-                return "exit"
-            else:
-                self.current_menu = "main"
-                self.current_selection = 0
-                return "back"
-        
-        elif user_input in ['?', 'help']:
-            self._show_help()
-            return "help"
-        
-        # Handle numeric selection (immediate action)
-        elif user_input.isdigit():
-            selection = int(user_input) - 1
-            if 0 <= selection < len(menu_items):
-                text, action, description = menu_items[selection]
-                return action
-        
-        # Handle j/k keys for navigation
-        elif user_input in ['j', '↓']:
-            self.current_selection = min(len(menu_items) - 1, self.current_selection + 1)
-            return "navigate"
-        
-        elif user_input in ['k', '↑']:
-            self.current_selection = max(0, self.current_selection - 1)
-            return "navigate"
-        
-        return "unknown"
+
     
     def _show_help(self):
         """Show help screen."""
@@ -354,15 +305,42 @@ Press Enter to continue...
                 self._draw_menu()
                 self._draw_footer()
                 
-                action = self._handle_input()
+                # Use the improved input method
+                choice = get_user_choice(len(self.menus[self.current_menu]["items"]))
                 
-                if action == "navigate":
-                    # Redraw the menu to show updated selection
+                # Handle arrow key navigation
+                if choice == 'UP':
+                    self.current_selection = max(0, self.current_selection - 1)
                     continue
-                elif action in ["exit", "back", "help", "unknown"]:
+                elif choice == 'DOWN':
+                    self.current_selection = min(len(self.menus[self.current_menu]["items"]) - 1, self.current_selection + 1)
                     continue
                 
-                self._handle_action(action)
+                # Handle special commands
+                elif choice.lower() in ['q', 'quit', 'exit']:
+                    if self.current_menu == "main":
+                        self.running = False
+                        continue
+                    else:
+                        self.current_menu = "main"
+                        self.current_selection = 0
+                        continue
+                
+                elif choice.lower() in ['?', 'help']:
+                    self._show_help()
+                    continue
+                
+                # Handle numeric selection
+                elif choice.isdigit():
+                    selection = int(choice) - 1
+                    if 0 <= selection < len(self.menus[self.current_menu]["items"]):
+                        text, action, description = self.menus[self.current_menu]["items"][selection]
+                        self._handle_action(action)
+                        continue
+                
+                # Unknown input
+                print("❌ Invalid option. Please try again.")
+                continue
             
         except KeyboardInterrupt:
             print("\n\n❌ Operation cancelled by user.")
