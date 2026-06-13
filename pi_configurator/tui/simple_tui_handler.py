@@ -127,11 +127,24 @@ class SimpleTUIHandler:
         print("-" * self.width)
     
     def _handle_input(self):
-        """Handle user input."""
+        """Handle user input with arrow key support."""
         menu_items = self.menus[self.current_menu]["items"]
         
         # Get user input
-        user_input = input("Select option: ").strip().lower()
+        user_input = input("Select option: ")
+        
+        # Handle escape sequences from arrow keys
+        if user_input.startswith('\x1b['):
+            # Arrow key pressed
+            if user_input == '\x1b[A':  # Up arrow
+                self.current_selection = max(0, self.current_selection - 1)
+                return "navigate"
+            elif user_input == '\x1b[B':  # Down arrow
+                self.current_selection = min(len(menu_items) - 1, self.current_selection + 1)
+                return "navigate"
+        
+        # Strip and process normal input
+        user_input = user_input.strip().lower()
         
         # Handle special commands
         if user_input in ['q', 'quit', 'exit']:
@@ -147,15 +160,14 @@ class SimpleTUIHandler:
             self._show_help()
             return "help"
         
-        # Handle numeric selection
+        # Handle numeric selection (immediate action)
         elif user_input.isdigit():
             selection = int(user_input) - 1
             if 0 <= selection < len(menu_items):
-                self.current_selection = selection
                 text, action, description = menu_items[selection]
                 return action
         
-        # Handle arrow keys (simple fallback)
+        # Handle j/k keys for navigation
         elif user_input in ['j', '↓']:
             self.current_selection = min(len(menu_items) - 1, self.current_selection + 1)
             return "navigate"
@@ -344,7 +356,10 @@ Press Enter to continue...
                 
                 action = self._handle_input()
                 
-                if action in ["exit", "back", "help", "navigate", "unknown"]:
+                if action == "navigate":
+                    # Redraw the menu to show updated selection
+                    continue
+                elif action in ["exit", "back", "help", "unknown"]:
                     continue
                 
                 self._handle_action(action)
