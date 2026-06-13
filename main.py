@@ -14,6 +14,8 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 # Import modular components
 from config.core import ConfigManager
 from config.interactive import InteractiveHandler
+from config.tui import TUIHandler
+from config.simple_tui import SimpleTUIHandler
 
 __version__ = "1.0.0"
 __author__ = "Pi Coding Agent Team"
@@ -30,6 +32,8 @@ def main():
         # Add arguments
         parser.add_argument("-i", "--interactive", action="store_true",
                            help="Run interactive menu-driven configuration")
+        parser.add_argument("-t", "--tui", action="store_true",
+                           help="Run advanced terminal UI (like make menuconfig)")
         parser.add_argument("-c", "--config-dir", type=str,
                            help="Override config directory (default: ~/.pi/agent)")
         parser.add_argument("--list", action="store_true",
@@ -66,10 +70,22 @@ def main():
         # These would be parsed from sys.argv if needed
         # For now, the Makefile targets use direct configurator.sh calls
         
-        # Handle interactive mode
+        # Handle TUI mode (advanced terminal UI)
+        if args.tui:
+            try:
+                tui_handler = TUIHandler(config_manager)
+                tui_handler.run()
+            except Exception as e:
+                print(f"Advanced TUI mode failed: {e}")
+                print("Falling back to simple TUI mode...")
+                simple_tui_handler = SimpleTUIHandler(config_manager)
+                simple_tui_handler.run()
+            return
+        
+        # Handle interactive mode (use simple TUI by default)
         if args.interactive:
-            interactive_handler = InteractiveHandler(config_manager)
-            interactive_handler.run()
+            simple_tui_handler = SimpleTUIHandler(config_manager)
+            simple_tui_handler.run()
             return
         
         # Print help if no arguments provided

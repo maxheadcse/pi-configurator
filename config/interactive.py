@@ -82,6 +82,45 @@ class InteractiveHandler:
                 break
             else:
                 print("Invalid option. Please try again.")
+            
+            if choice == "0":
+                print("Exiting without saving.")
+                break
+            
+            elif choice == "1":
+                self.model_menu()
+            elif choice == "2":
+                self.ui_menu()
+            elif choice == "3":
+                self.compaction_menu()
+            elif choice == "4":
+                self.retry_menu()
+            elif choice == "5":
+                self.message_delivery_menu()
+            elif choice == "6":
+                self.terminal_menu()
+            elif choice == "7":
+                self.shell_menu()
+            elif choice == "8":
+                self.sessions_menu()
+            elif choice == "9":
+                self.markdown_menu()
+            elif choice == "10":
+                self.resources_menu()
+            elif choice == "11":
+                self.bedrock_menu()
+            elif choice == "12":
+                self.config_manager.list_available_models()
+                input("\nPress Enter to continue...")
+            elif choice == "13":
+                self.config_manager.list_settings()
+                input("\nPress Enter to continue...")
+            elif choice == "14":
+                self.config_manager.save_settings(self.config_manager.settings)
+                print("Configuration saved to ~/.pi/agent/settings.json")
+                break
+            else:
+                print("Invalid option. Please try again.")
     
     def model_menu(self) -> None:
         """Menu for model and thinking settings."""
