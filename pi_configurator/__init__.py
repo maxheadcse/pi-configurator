@@ -1,5 +1,5 @@
 """
-Pi Configurator - Main Package
+Pi-Ckl - Main Package
 
 A robust, modular configuration tool for the Pi Coding Agent.
 """

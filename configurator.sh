@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Pi Coding Agent Configuration Tool
+# Pi-Ckl - Configuration Tool for Pi Coding Agent
 # A robust, menu-driven and CLI-capable configuration tool
 
 # Set strict mode
@@ -72,7 +72,7 @@ done
 
 # Show help if requested
 if [[ "$SHOW_HELP" == true ]]; then
-    echo "Pi Coding Agent Configuration Tool"
+    echo "Pi-Ckl - Configuration Tool for Pi Coding Agent"
     echo ""
     echo "Usage: $0 [OPTIONS]"
     echo ""

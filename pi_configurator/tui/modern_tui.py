@@ -32,7 +32,7 @@ class ModernTUI:
         """Build the menu structure."""
         return {
             "main": {
-                "title": "🎛️  Pi Coding Agent Configuration",
+                "title": "🎛️  Pi-Ckl Configuration",
                 "description": "Configure your AI assistant settings",
                 "items": [
                     ("🤖 Model & AI Settings", "model", "Configure AI models and providers"),
@@ -46,7 +46,7 @@ class ModernTUI:
                 ]
             },
             "model": {
-                "title": "🤖 Model & AI Settings",
+                "title": "🤖 Pi-Ckl Model Settings",
                 "description": "Configure AI provider and model settings",
                 "items": [
                     ("Default Provider", "provider", f"Current: {self.config_manager.get_provider()}"),
@@ -57,7 +57,7 @@ class ModernTUI:
                 ]
             },
             "ui": {
-                "title": "🎨 UI & Display Settings",
+                "title": "🎨 Pi-Ckl UI Settings",
                 "description": "Configure visual appearance and behavior",
                 "items": [
                     ("Theme", "theme", f"Current: {self.config_manager.get_theme()}"),
@@ -67,7 +67,7 @@ class ModernTUI:
                 ]
             },
             "system": {
-                "title": "⚙️  System & Performance",
+                "title": "⚙️  Pi-Ckl System Settings",
                 "description": "Configure system behavior and performance settings",
                 "items": [
                     ("Compaction Settings", "compaction", "Configure message compaction"),
@@ -77,7 +77,7 @@ class ModernTUI:
                 ]
             },
             "resources": {
-                "title": "📦 Resources & Extensions",
+                "title": "📦 Pi-Ckl Resources",
                 "description": "Manage extensions, skills, and packages",
                 "items": [
                     ("Packages", "packages", f"Current: {self.config_manager.settings.get('resources', {}).get('packages', [])}"),
@@ -87,7 +87,7 @@ class ModernTUI:
                 ]
             },
             "bedrock": {
-                "title": "💰 Bedrock Pricing Configuration",
+                "title": "💰 Pi-Ckl Bedrock Settings",
                 "description": "Configure AWS Bedrock pricing tier",
                 "items": [
                     ("Default Tier", "tier", f"Current: {self.config_manager.get_bedrock_tier()}"),
@@ -164,7 +164,7 @@ class ModernTUI:
             self.running = False
             self._clear_screen()
             self.console.print("[bold green]✅ Configuration saved successfully![/bold green]")
-            self.console.print("[bold magenta]🎉 Thank you for using Pi Configurator![/bold magenta]")
+            self.console.print("[bold magenta]🎉 Thank you for using Pi-Ckl![/bold magenta]")
         
         elif action == "exit":
             self.running = False
@@ -339,7 +339,7 @@ class ModernTUI:
             self._clear_screen()
             self.console.print(f"[bold red]❌ Error: {e}[/bold red]")
         finally:
-            self.console.print("[bold magenta]👋 Thank you for using Pi Configurator![/bold magenta]")
+            self.console.print("[bold magenta]👋 Thank you for using Pi-Ckl![/bold magenta]")
 
 class ModernTUIHandler:
     """Handler for modern TUI operations."""

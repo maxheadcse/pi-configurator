@@ -1,4 +1,4 @@
-# Pi Coding Agent Configuration Tool
+# Pi-Ckl - Configuration Tool for Pi Coding Agent
 
 A robust, modular, and secure configuration tool for the Pi Coding Agent with menu-driven interface and CLI capabilities.
 

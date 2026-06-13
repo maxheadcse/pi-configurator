@@ -26,7 +26,7 @@ def main():
     """Main entry point for the application."""
     try:
         parser = argparse.ArgumentParser(
-            description="Pi Coding Agent Configuration Tool",
+            description="Pi-Ckl - Configuration Tool for Pi Coding Agent",
             formatter_class=argparse.RawDescriptionHelpFormatter
         )
         
@@ -44,7 +44,7 @@ def main():
         parser.add_argument("--list-models", action="store_true",
                            help="List all available models for the current provider")
         parser.add_argument("--version", action="version",
-                           version=f"Pi Coding Agent Configuration Tool v{__version__}",
+                           version=f"Pi-Ckl v{__version__}",
                            help="Show version information and exit")
         
         args = parser.parse_args()
