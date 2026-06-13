@@ -16,14 +16,14 @@ with open('README.md', 'r', encoding='utf-8') as f:
     long_description = f.read()
 
 setup(
-    name='pi-coding-agent-configurator',
+    name='pi-ckl',
     version='1.0.0',
     author='Pi Coding Agent Team',
     author_email='support@pi-coding-agent.com',
     description='A robust, menu-driven and CLI-capable configuration tool for the Pi Coding Agent',
     long_description=long_description,
     long_description_content_type='text/markdown',
-    url='https://github.com/maxheadcse/pi-configurator',
+    url='https://github.com/maxheadcse/pi-ckl',
     packages=find_packages(),
     include_package_data=True,
     install_requires=requirements,
@@ -51,8 +51,8 @@ setup(
     python_requires='>=3.8',
     keywords='pi coding agent configuration cli menu tool',
     project_urls={
-        'Source': 'https://github.com/maxheadcse/pi-configurator',
-        'Bug Tracker': 'https://github.com/maxheadcse/pi-configurator/issues',
-        'Documentation': 'https://github.com/maxheadcse/pi-configurator/blob/master/README.md',
+        'Source': 'https://github.com/maxheadcse/pi-ckl',
+        'Bug Tracker': 'https://github.com/maxheadcse/pi-ckl/issues',
+        'Documentation': 'https://github.com/maxheadcse/pi-ckl/blob/master/README.md',
     },
 )
