@@ -83,10 +83,10 @@ def main():
                 simple_tui_handler.run()
             return
         
-        # Handle interactive mode (use modern TUI by default)
+        # Handle interactive mode (use simple TUI by default for reliability)
         if args.interactive:
-            modern_tui_handler = ModernTUIHandler(config_manager)
-            modern_tui_handler.run()
+            simple_tui_handler = SimpleTUIHandler(config_manager)
+            simple_tui_handler.run()
             return
         
         # Print help if no arguments provided
