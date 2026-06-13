@@ -37,6 +37,9 @@ check_packages() {
             echo "Info: Optional package '$package' not found."
             echo "Some features may be enhanced with: pip install $package"
             echo ""
+        else
+            echo "Info: Optional package '$package' is installed and available."
+            echo ""
         fi
     done
 }
