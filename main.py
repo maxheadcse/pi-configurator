@@ -87,22 +87,10 @@ def main():
                 simple_tui_handler.run()
             return
         
-        # Handle interactive mode (use keyboard TUI by default)
+        # Handle interactive mode (use simple TUI - most reliable)
         if args.interactive:
-            try:
-                keyboard_tui_handler = KeyboardTUIHandler(config_manager)
-                keyboard_tui_handler.run()
-            except Exception as e:
-                print(f"Keyboard TUI mode failed: {e}")
-                print("Falling back to readline TUI mode...")
-                try:
-                    readline_tui_handler = ReadlineTUIHandler(config_manager)
-                    readline_tui_handler.run()
-                except Exception as e2:
-                    print(f"Readline TUI mode failed: {e2}")
-                    print("Falling back to simple TUI mode...")
-                    simple_tui_handler = SimpleTUIHandler(config_manager)
-                    simple_tui_handler.run()
+            simple_tui_handler = SimpleTUIHandler(config_manager)
+            simple_tui_handler.run()
             return
         
         # Print help if no arguments provided
